@@ -2,10 +2,9 @@ import { ILesson } from "@/lib/types/ILesson";
 import { FC } from "react";
 import CalendarItem from "@/app/(browse)/schedule/_components/CalendarItem";
 import { cn } from "@/lib/utils";
-import { IPeopleLesson } from "@/lib/types/IPeople";
 
 interface Props {
-  lessons: IPeopleLesson[];
+  lessons: ILesson[];
   currentLessonId?: string;
 }
 
@@ -23,7 +22,7 @@ export interface CalendarDayWithLessons {
   month: number;
   year: number;
   weekDay: string;
-  lessons: IPeopleLesson[];
+  lessons: ILesson[];
 }
 
 export const getMonth = (month: number) => {
@@ -49,7 +48,7 @@ export const getWeekDay = (day: number) => {
   return days[day];
 };
 
-export const getDays = (lessons: IPeopleLesson[]) => {
+export const getDays = (lessons: ILesson[]) => {
   let nowDate;
   if ([0, 6].includes(new Date().getDay())) {
     nowDate = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 2);

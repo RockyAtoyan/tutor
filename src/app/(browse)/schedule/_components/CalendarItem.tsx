@@ -8,7 +8,6 @@ import { ILesson } from "@/lib/types/ILesson";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { IPeopleLesson } from "@/lib/types/IPeople";
 
 interface Props {
   day: CalendarDayWithLessons;
@@ -16,7 +15,7 @@ interface Props {
 }
 
 export const LessonCard: FC<{
-  lesson: IPeopleLesson;
+  lesson: ILesson;
   blocks?: number;
   blockHeight: number;
 }> = ({ lesson, blocks, blockHeight }) => {

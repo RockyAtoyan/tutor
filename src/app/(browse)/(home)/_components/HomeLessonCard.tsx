@@ -2,11 +2,10 @@ import { FC } from "react";
 import { ILesson } from "@/lib/types/ILesson";
 import Link from "next/link";
 import { getMonth } from "@/app/(browse)/schedule/_components/Calendar";
-import { IPeopleLesson } from "@/lib/types/IPeople";
 import Image from "next/image";
 
 interface Props {
-  lesson: IPeopleLesson;
+  lesson: ILesson;
 }
 
 export const HomeLessonCard: FC<Props> = ({ lesson }) => {

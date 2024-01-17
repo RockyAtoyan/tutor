@@ -1,5 +1,6 @@
 import { IPortfolio } from "@/lib/types/IPortfolio";
 import { IEducation } from "@/lib/types/IEducation";
+import { ILesson } from "@/lib/types/ILesson";
 
 export interface IPeople {
   id: number;
@@ -10,26 +11,6 @@ export interface IPeople {
   age: number;
   education: IEducation;
   subject: string[];
-  lessons?: IPeopleLesson[];
+  lessons?: ILesson[];
   role: string;
-}
-
-export interface IPeopleLesson {
-  id: number;
-  tutor: IPeopleLessonTutor;
-  subject: string;
-  start_time: string | number | Date;
-  end_time: string | number | Date;
-  cost: number;
-  link?: string;
-}
-
-export interface IPeopleLessonTutor {
-  id: number;
-  name: string;
-  image: string;
-  gender: string;
-  age: number;
-  role: string;
-  cost: number;
 }

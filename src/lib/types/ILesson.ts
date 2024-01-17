@@ -1,5 +1,4 @@
 import { ITutorInTutorLesson } from "@/lib/types/ITutor";
-import { IPeopleLessonTutor } from "@/lib/types/IPeople";
 
 export interface ILesson {
   id: number;
