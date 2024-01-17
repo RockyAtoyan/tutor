@@ -53,7 +53,6 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
   });
   const [time, setTime] = useState<string | null>(null);
   const [lessonType, setLessonType] = useState<"all" | "inperson">("all");
-  const [location, setLocation] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
 
@@ -121,10 +120,6 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
       setError("Выберите формат занятия");
       return;
     }
-    if (!location) {
-      setError("Выберите место");
-      return;
-    }
     setError(null);
     if (currentLesson) {
       // startTransition(() => {
@@ -138,7 +133,6 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
       const res = await signToLesson(String(currentLesson.id), {
         date,
         time,
-        location,
         lessonType,
       });
       if (res) {
@@ -204,7 +198,6 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
               onSelect={(value) => {
                 setDate(value);
                 setTime(null);
-                setLocation(null);
               }}
               // disabled={disabledDays}
               modifiers={{
@@ -254,30 +247,6 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
                     value={lessonType}
                     setValue={(value) => setLessonType(value as any)}
                   />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <h2 className="text-base font-semibold">Выберите адрес</h2>
-                <div className="flex items-center flex-wrap gap-2">
-                  {currentLesson?.locations.map((loc, idx) => {
-                    return (
-                      <Badge
-                        className="cursor-pointer text-base"
-                        key={idx}
-                        onClick={() => {
-                          setLocation(loc.toLowerCase());
-                        }}
-                        variant={
-                          location === loc.toLowerCase()
-                            ? "destructive"
-                            : "default"
-                        }
-                      >
-                        {loc}
-                      </Badge>
-                    );
-                  })}
                 </div>
               </div>
 

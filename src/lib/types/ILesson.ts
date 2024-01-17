@@ -8,5 +8,4 @@ export interface ILesson {
   end_time: string | number;
   cost: number;
   link?: string;
-  locations: string[];
 }
