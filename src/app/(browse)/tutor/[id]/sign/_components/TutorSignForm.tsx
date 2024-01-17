@@ -127,14 +127,14 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
     }
     setError(null);
     if (currentLesson) {
-      startTransition(() => {
-        signToLesson(String(currentLesson.id), {
-          date,
-          time,
-          location,
-          lessonType,
-        });
-      });
+      // startTransition(() => {
+      //   signToLesson(String(currentLesson.id), {
+      //     date,
+      //     time,
+      //     location,
+      //     lessonType,
+      //   });
+      // });
       const res = await signToLesson(String(currentLesson.id), {
         date,
         time,
