@@ -47,7 +47,9 @@ export default function RootLayout({
             <Navbar />
             <main className="flex flex-col-reverse lg:flex-row w-full h-screen overflow-hidden">
               <Sidebar />
-              <div className="w-full overflow-auto">{children}</div>
+              <div className="w-full h-full lg:h-auto overflow-auto">
+                {children}
+              </div>
             </main>
           </div>
           <Notifications />
