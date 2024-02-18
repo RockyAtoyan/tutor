@@ -18,7 +18,7 @@ const ChatsLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="page">
       <h1>Сообщения</h1>
-      {!!chats && !!chats.length && (
+      {!!chats && !!chats.length ? (
         <div className="flex flex-col lg:flex-row items-stretch gap-5 h-[80vh] overflow-hidden">
           <div className="flex lg:flex-col gap-4 w-auto lg:w-[25%] h-[18%] lg:h-auto overflow-auto p-2 lg:p-5 bg-secondary rounded-3xl">
             {chats.map((chat) => {
@@ -27,6 +27,8 @@ const ChatsLayout = async ({ children }: { children: React.ReactNode }) => {
           </div>
           <div className="h-[73%] lg:h-auto w-full lg:w-[73%]">{children}</div>
         </div>
+      ) : (
+        <h2 className="text-destructive">Пока пусто!</h2>
       )}
     </div>
   );

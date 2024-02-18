@@ -61,7 +61,7 @@ const TutorPage: NextPage<Props> = async ({ params, searchParams }) => {
         </Button>
         <SearchForm searchParams={searchParams} />
       </div>
-      {!!total && !!tutors.length && (
+      {!!total && !!tutors.length ? (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-3 justify-items-center gap-5">
             {tutors.map((tutor) => {
@@ -71,13 +71,15 @@ const TutorPage: NextPage<Props> = async ({ params, searchParams }) => {
           <div>
             <Pagination
               page={+params.page}
-              size={tutors.length}
+              size={query.size || 6}
               total={total}
               baseLink={`/tutors`}
               queryString={getQueryString(searchParams)}
             />
           </div>
         </>
+      ) : (
+        <h2 className="text-destructive">Пока пусто!</h2>
       )}
     </div>
   );

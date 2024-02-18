@@ -20,7 +20,7 @@ export const TutorCard: FC<Props> = ({ tutor }) => {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col gap-4 w-[80%] bg-secondary p-4 rounded-2xl">
+    <div className="flex flex-col justify-between gap-4 w-[80%] bg-secondary p-4 rounded-2xl">
       {isPending && <Loader />}
       <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-6">
         <div className="flex w-[30%] items-center justify-center">

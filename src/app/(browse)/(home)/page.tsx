@@ -19,15 +19,17 @@ const HomePage = async () => {
         {user && (
           <div className="flex flex-col items-center gap-8 px-1 py-5 lg:px-5 rounded-3xl bg-white">
             <h2 className="text-base lg:text-2xl font-semibold">Мои занятия</h2>
-            {!!user.lessons && !!user.lessons.length && (
+            {!!user.lessons && !!user.lessons.length ? (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-0 justify-items-center w-full">
                 {[...user.lessons]
-                  .sort((l1, l2) => +l1.start_time - +l2.start_time)
+                  .sort((l1, l2) => +l1.startDateTime - +l2.startDateTime)
                   .slice(0, 3)
                   .map((lesson) => {
                     return <HomeLessonCard key={lesson.id} lesson={lesson} />;
                   })}
               </div>
+            ) : (
+              <h2 className="text-destructive">Вы не записаны на уроки!</h2>
             )}
           </div>
         )}

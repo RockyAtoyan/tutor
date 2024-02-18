@@ -19,7 +19,7 @@ export const registration = async (payload: RegPayload) => {
 export const login = async (payload: LoginPayload) => {
   try {
     const { user, accessToken } = await ApiAuth.login(payload);
-
+    console.log(user, accessToken);
     cookies().set("accessToken", accessToken);
 
     revalidatePath("/");
@@ -34,6 +34,7 @@ export const login = async (payload: LoginPayload) => {
 export const logout = async () => {
   try {
     const res = await ApiAuth.logout();
+    console.log(res);
     revalidatePath("/");
     //redirect("/login");
     return res.success;

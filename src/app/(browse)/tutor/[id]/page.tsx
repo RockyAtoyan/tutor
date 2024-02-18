@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/app/(browse)/tutor/[id]/_components/Slider";
 import { Buttons } from "@/app/(browse)/tutor/[id]/_components/Buttons";
+import { ends } from "@/lib/word-ends";
 
 interface Props {
   params: {
@@ -53,14 +54,16 @@ const TutorPage: NextPage<Props> = async ({ params }) => {
           </h2>
           <div className="mt-6 lg:mt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4">
             <Badge variant="outline" className="text-base">
-              {tutor.age} года
+              {tutor.age} {ends(tutor.age, ["год", "года", "лет"])}
             </Badge>
             <Badge variant="outline" className="text-base">
-              {tutor.gender}
+              {tutor.gender === "male" ? "Мужчина" : "Женщина"}
             </Badge>
-            <Badge variant="outline" className="text-base">
-              {tutor.education.institution.name}
-            </Badge>
+            {tutor.education?.institution?.name && (
+              <Badge variant="outline" className="text-base">
+                {tutor.education?.institution.name}
+              </Badge>
+            )}
           </div>
           {!!reviews && !!reviews.length && (
             <div className="mt-14">

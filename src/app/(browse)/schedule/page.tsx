@@ -16,7 +16,7 @@ const SchedulePage: NextPage<Props> = async ({ searchParams }) => {
   return (
     <div className="page overflow-hidden">
       <h1>Расписание</h1>
-      {!!user.lessons && !!user.lessons.length && (
+      {!!user.lessons && !!user.lessons.length ? (
         <div>
           <Calendar
             lessons={[...user.lessons].sort(
@@ -25,6 +25,8 @@ const SchedulePage: NextPage<Props> = async ({ searchParams }) => {
             currentLessonId={searchParams.lesson}
           />
         </div>
+      ) : (
+        <h2 className="text-destructive">Вы не записаны на уроки!</h2>
       )}
     </div>
   );
