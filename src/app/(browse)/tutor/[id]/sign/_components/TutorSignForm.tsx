@@ -29,7 +29,6 @@ interface Props {
 
 export const TutorSignForm: FC<Props> = ({ tutor }) => {
   const router = useRouter();
-
   const [isPending, startTransition] = useTransition();
 
   const [subject, setSubject] = useState(
@@ -40,10 +39,10 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
           tutor.subject.toLowerCase()
       : undefined,
   );
-
+  console.log(tutor);
   const [date, setDate] = useState<Date | undefined>(() => {
     if (tutor.lessons && tutor.lessons.length) {
-      const date = new Date(tutor.lessons[0].startDateTime);
+      const date = new Date(tutor.lessons[0].start_time);
       const year = date.getFullYear();
       const month = date.getMonth();
       const day = date.getDate();
@@ -59,7 +58,7 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
   const times = useMemo(() => {
     return tutor.lessons
       ?.filter((lesson) => {
-        const lessonDate = new Date(lesson.startDateTime);
+        const lessonDate = new Date(lesson.start_time);
         return lessonDate.getFullYear() === date?.getFullYear() &&
           lessonDate.getMonth() === date?.getMonth() &&
           lessonDate.getDate() === date?.getDate() &&
@@ -70,8 +69,8 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
               .includes(String(subject));
       })
       .map((lesson) => ({
-        start: new Date(lesson.startDateTime).toLocaleTimeString().slice(0, 5),
-        end: new Date(lesson.startDateTime).toLocaleTimeString().slice(0, 5),
+        start: new Date(lesson.start_time).toLocaleTimeString().slice(0, 5),
+        end: new Date(lesson.start_time).toLocaleTimeString().slice(0, 5),
       }));
   }, [date, subject]);
 
@@ -84,7 +83,7 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
             .includes(String(subject)),
     )
     .map((lesson) => {
-      const date = new Date(lesson.startDateTime);
+      const date = new Date(lesson.start_time);
       const year = date.getFullYear();
       const month = date.getMonth();
       const day = date.getDate();
@@ -93,7 +92,7 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
 
   const currentLesson = useMemo(() => {
     return tutor.lessons?.find((lesson) => {
-      const lessonDate = new Date(lesson.startDateTime);
+      const lessonDate = new Date(lesson.start_time);
       return lessonDate.getFullYear() === date?.getFullYear() &&
         lessonDate.getMonth() === date?.getMonth() &&
         lessonDate.getDate() === date?.getDate() &&
@@ -102,7 +101,7 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
         : Array.from(lesson.subject)
             .map((str) => str.toLowerCase())
             .includes(String(subject)) &&
-            new Date(lesson.startDateTime).toLocaleTimeString().slice(0, 5) ===
+            new Date(lesson.start_time).toLocaleTimeString().slice(0, 5) ===
               time?.slice(0, 5);
     });
   }, [date, subject, time]);
@@ -147,6 +146,8 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
       }
     }
   };
+
+  console.log(date);
 
   return (
     <div className="flex flex-col lg:flex-row items-stretch min-h-[80vh]">

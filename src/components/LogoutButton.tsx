@@ -6,17 +6,22 @@ import { redirect, useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LogOut, LogOutIcon } from "lucide-react";
 import { toast } from "sonner";
+import { useTransition } from "react";
 
 export const LogoutButton = () => {
   const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
   const clickHandler = async () => {
-    await logout();
-    //router.push("/")
-    toast.info("Вы вышли из аккаунта!", {});
+    startTransition(() => {
+      logout().then((res) => {
+        toast.info("Вы вышли из аккаунта!", {});
+      });
+    });
   };
 
   return (
-    <Button onClick={clickHandler} size={"icon"}>
+    <Button disabled={isPending} onClick={clickHandler} size={"icon"}>
       <LogOut />
     </Button>
   );

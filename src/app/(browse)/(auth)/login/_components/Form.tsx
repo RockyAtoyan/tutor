@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useTransition } from "react";
 import { Formik, Form as FormikForm } from "formik";
 import FormikInput from "@/components/FormikInput";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,8 @@ interface Props {}
 export const Form: FC<Props> = ({}) => {
   const router = useRouter();
 
+  const [isPending, startTransition] = useTransition();
+
   return (
     <Formik
       initialValues={{
@@ -23,6 +25,7 @@ export const Form: FC<Props> = ({}) => {
         rememberMe: false,
       }}
       onSubmit={async (values, { setFieldError, resetForm }) => {
+        if (isPending) return;
         if (!values.name || !values.password) {
           if (!values.name) {
             setFieldError("name", "Обязательное поле");
@@ -32,18 +35,21 @@ export const Form: FC<Props> = ({}) => {
           }
           return;
         }
-        const res = await login({
-          login: values.name,
-          password: values.password,
-          rememberMe: values.rememberMe,
+        startTransition(() => {
+          login({
+            login: values.name,
+            password: values.password,
+            rememberMe: values.rememberMe,
+          }).then((res) => {
+            if (res) {
+              toast.success("Вы успешно вошли!", {});
+              resetForm();
+              router.push("/");
+            } else {
+              toast.error("Ошибка!", {});
+            }
+          });
         });
-        if (res) {
-          toast.success("Вы успешно вошли!", {});
-          resetForm();
-          router.push("/");
-        } else {
-          toast.error("Ошибка!", {});
-        }
       }}
     >
       {({ values, errors, setFieldValue }) => (
@@ -71,7 +77,11 @@ export const Form: FC<Props> = ({}) => {
               }}
             />
           </div>
-          <Button className="w-full lg:w-[40%]" type={"submit"}>
+          <Button
+            disabled={isPending}
+            className="w-full lg:w-[40%]"
+            type={"submit"}
+          >
             Войти
           </Button>
           <h4 className="text-sm">

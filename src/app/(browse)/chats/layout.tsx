@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { ApiChats } from "@/lib/api/api.chats";
 import { ChatsListItem } from "@/app/(browse)/chats/_components/ChatsListItem";
 import { Metadata } from "next";
+import { getChats } from "@/lib/services/service.chats";
 
 export const metadata: Metadata = {
   title: "Tutor | Мессенджер",
@@ -11,9 +12,10 @@ export const metadata: Metadata = {
 
 const ChatsLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = await auth();
+
   if (!user) redirect("/login");
 
-  const chats = await ApiChats.getUserChats({ id: String(user.id) });
+  const chats = await getChats(String(user.id));
 
   return (
     <div className="page">

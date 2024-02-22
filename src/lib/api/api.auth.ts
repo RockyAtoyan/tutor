@@ -28,7 +28,6 @@ export interface AuthResponse {
 export class ApiAuth {
   static async registration(payload: RegPayload) {
     const res = await mainAxios.post<RegResponse>("/registration", payload);
-    console.log(res);
     return res.data;
   }
 

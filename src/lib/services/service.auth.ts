@@ -6,9 +6,10 @@ export const auth = async () => {
   if (!accessToken) return null;
   try {
     const res = await ApiAuth.auth(accessToken);
-    return res ? res.user : res;
+    return res.user;
   } catch (err) {
     const error = err as Error;
+    console.log("auth: " + error.message);
     return null;
   }
 };

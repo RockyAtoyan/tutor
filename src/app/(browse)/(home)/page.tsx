@@ -4,6 +4,7 @@ import { HomeLessonCard } from "@/app/(browse)/(home)/_components/HomeLessonCard
 
 const HomePage = async () => {
   const user = await auth();
+
   return (
     <div className="page h-full">
       <h1 className="h-[10%]">Главная</h1>
@@ -22,7 +23,7 @@ const HomePage = async () => {
             {!!user.lessons && !!user.lessons.length ? (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-0 justify-items-center w-full">
                 {[...user.lessons]
-                  .sort((l1, l2) => +l1.startDateTime - +l2.startDateTime)
+                  .sort((l1, l2) => +l1.start_time - +l2.start_time)
                   .slice(0, 3)
                   .map((lesson) => {
                     return <HomeLessonCard key={lesson.id} lesson={lesson} />;

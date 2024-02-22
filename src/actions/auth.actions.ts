@@ -8,7 +8,7 @@ import { cookies } from "next/headers";
 export const registration = async (payload: RegPayload) => {
   try {
     const res = await ApiAuth.registration(payload);
-    return res.user;
+    return res;
   } catch (e) {
     const error = e as Error;
     console.log(error.message);
@@ -19,14 +19,14 @@ export const registration = async (payload: RegPayload) => {
 export const login = async (payload: LoginPayload) => {
   try {
     const { user, accessToken } = await ApiAuth.login(payload);
-    console.log(user, accessToken);
+
     cookies().set("accessToken", accessToken);
 
     revalidatePath("/");
     return user;
   } catch (e) {
     const error = e as Error;
-    console.log(error.message);
+    console.log("login: " + error.message);
     return null;
   }
 };
@@ -34,7 +34,8 @@ export const login = async (payload: LoginPayload) => {
 export const logout = async () => {
   try {
     const res = await ApiAuth.logout();
-    console.log(res);
+    console.log("logout: " + res);
+    cookies().delete("accessToken");
     revalidatePath("/");
     //redirect("/login");
     return res.success;
@@ -48,6 +49,7 @@ export const logout = async () => {
 export const getAccessToken = () => {
   const cks = cookies();
   const accessToken = cks.get("accessToken")?.value;
+
   if (!accessToken) return null;
   return accessToken;
 };

@@ -30,7 +30,6 @@ const SearchForm: FC<Props> = ({ searchParams }) => {
       ...searchParams,
       search: value,
     });
-    console.log(str);
     router.push(`/tutors/1?${str}`);
   };
 
