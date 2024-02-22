@@ -23,7 +23,7 @@ const TutorPage: NextPage<Props> = async ({ params }) => {
   return (
     <div className="page">
       <h1>Запись к преподавателю</h1>
-      <TutorSignForm tutor={tutor} />
+      <TutorSignForm tutor={tutor} authUser={user} />
     </div>
   );
 };

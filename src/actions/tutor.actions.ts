@@ -8,6 +8,10 @@ export interface SignToLessonPayload {
   date: Date;
   time: string;
   lessonType: string;
+  tutorId: number;
+  authId: number;
+  subject: string;
+  startDateTime: string;
 }
 
 export const signToLesson = async (

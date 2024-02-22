@@ -22,12 +22,14 @@ import { SelectField } from "@/app/(browse)/tutors/filter/_components/SelectFiel
 import { toast } from "sonner";
 import { ITutor } from "@/lib/types/ITutor";
 import { Loader } from "@/components/Loader";
+import { IPeople } from "@/lib/types/IPeople";
 
 interface Props {
   tutor: ITutor;
+  authUser: IPeople;
 }
 
-export const TutorSignForm: FC<Props> = ({ tutor }) => {
+export const TutorSignForm: FC<Props> = ({ tutor, authUser }) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -39,7 +41,7 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
           tutor.subject.toLowerCase()
       : undefined,
   );
-  console.log(tutor);
+
   const [date, setDate] = useState<Date | undefined>(() => {
     if (tutor.lessons && tutor.lessons.length) {
       const date = new Date(tutor.lessons[0].start_time);
@@ -70,7 +72,7 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
       })
       .map((lesson) => ({
         start: new Date(lesson.start_time).toLocaleTimeString().slice(0, 5),
-        end: new Date(lesson.start_time).toLocaleTimeString().slice(0, 5),
+        end: new Date(lesson.end_time).toLocaleTimeString().slice(0, 5),
       }));
   }, [date, subject]);
 
@@ -133,6 +135,10 @@ export const TutorSignForm: FC<Props> = ({ tutor }) => {
         date,
         time,
         lessonType,
+        tutorId: tutor.id,
+        subject,
+        authId: authUser.id,
+        startDateTime: new Date(currentLesson.start_time).toISOString(),
       });
       if (res) {
         router.push(`/tutor/${tutor.id}`);
