@@ -5,8 +5,8 @@ import { ApiUsers } from "@/lib/api/api.users";
 import { revalidatePath } from "next/cache";
 
 export interface SignToLessonPayload {
-  date: Date;
-  time: string;
+  // date: Date;
+  // time: string;
   lessonType: string;
   tutorId: number;
   authId: number;
