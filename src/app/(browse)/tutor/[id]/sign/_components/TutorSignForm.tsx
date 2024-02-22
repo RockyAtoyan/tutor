@@ -132,8 +132,6 @@ export const TutorSignForm: FC<Props> = ({ tutor, authUser }) => {
       //   });
       // });
       const res = await signToLesson(String(currentLesson.id), {
-        // date,
-        // time,
         lessonType,
         tutorId: tutor.id,
         subject,
