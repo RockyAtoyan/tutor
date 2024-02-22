@@ -6,12 +6,13 @@ import { revalidatePath } from "next/cache";
 
 export interface SignToLessonPayload {
   // date: Date;
-  // time: string;
+  time: string;
   lessonType: string;
   tutorId: number;
   authId: number;
   subject: string;
   startDateTime: string;
+  endDateTime: string;
 }
 
 export const signToLesson = async (

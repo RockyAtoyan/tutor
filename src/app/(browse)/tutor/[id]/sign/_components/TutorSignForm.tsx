@@ -132,11 +132,14 @@ export const TutorSignForm: FC<Props> = ({ tutor, authUser }) => {
       //   });
       // });
       const res = await signToLesson(String(currentLesson.id), {
+        // date,
+        time,
         lessonType,
         tutorId: tutor.id,
         subject,
         authId: authUser.id,
         startDateTime: new Date(currentLesson.start_time).toISOString(),
+        endDateTime: new Date(currentLesson.end_time).toISOString(),
       });
       if (res) {
         router.push(`/tutor/${tutor.id}`);
